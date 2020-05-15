@@ -10,7 +10,7 @@ namespace Encryption.Irreversible
     public class MD5Encrypt
     {
         /// <summary>
-        /// 获取16字节大写MD5编码字符串
+        /// 获取16字节（32位）大写MD5编码字符串
         /// </summary>
         /// <param name="buff">编码</param>
         /// <returns></returns>
@@ -28,7 +28,7 @@ namespace Encryption.Irreversible
         }
 
         /// <summary>
-        /// 获取16字节大写MD5编码字符串
+        /// 获取16字节（32位）大写MD5编码字符串
         /// </summary>
         /// <param name="buff">编码</param>
         /// <returns></returns>
