@@ -27,22 +27,29 @@ namespace Encryption.Irreversible
             return Encrypt(buff);
         }
 
-        /// <summary>
-        /// 获取16字节（32位）大写MD5编码字符串
-        /// </summary>
-        /// <param name="buff">编码</param>
-        /// <returns></returns>
-        public static string Encrypt1(byte[] buff)
+        public static byte[] GetEncryptData(byte[] buff)
         {
-            MD5 md5Hasher = MD5.Create();
-            byte[] bytesMD5 = md5Hasher.ComputeHash(buff);
-            return BitConverter.ToString(bytesMD5).Replace("-", "");
+            MD5 md5 = new MD5CryptoServiceProvider();
+            return md5.ComputeHash(buff);
         }
 
-        public static string Encrypt1(string input)
+        public static byte[] GetEncryptData(string input)
         {
             var buff = Encoding.ASCII.GetBytes(input);
-            return Encrypt1(buff);
+            return GetEncryptData(buff);
+        }
+
+        /// <summary>
+        /// 获取ContentMD5数据，对安全有要求的Http请求头部要求该数据
+        /// </summary>
+        /// <param name="body"></param>
+        /// <returns></returns>
+        public static string GetContentMD5(string body)
+        {
+            var data = GetEncryptData(body);
+            var base64 = new char[data.Length];
+
+            return Convert.ToBase64String(data);
         }
     }
 }
