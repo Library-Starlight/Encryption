@@ -14,6 +14,10 @@ namespace Encryption.Irreversible
     {
         static void Main(string[] args)
         {
+            var uri = new Uri("http://127.0.0.1:80");
+
+            
+
         }
 
         #region AES CBC
@@ -77,6 +81,9 @@ namespace Encryption.Irreversible
         }
 
         #endregion
+
+        #region ContentMD5编码
+
         private static void ContentMD5()
         {
             var str = "Hello World!";
@@ -88,5 +95,7 @@ namespace Encryption.Irreversible
             var bas64 = MD5Encrypt.GetContentMD5(str);
             Console.WriteLine(bas64);
         }
+
+        #endregion
     }
 }
