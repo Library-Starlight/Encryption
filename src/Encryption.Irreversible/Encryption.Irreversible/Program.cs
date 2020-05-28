@@ -14,11 +14,31 @@ namespace Encryption.Irreversible
     {
         static void Main(string[] args)
         {
-            var uri = new Uri("http://127.0.0.1:80");
-
-            
-
+            GenerateSecureRandomNumber();
         }
+
+        #region 生成安全随机数
+
+        private static void GenerateSecureRandomNumber()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                var rn = GetDouble();
+
+                Console.WriteLine(rn);
+            }
+        }
+
+        private static double GetDouble()
+        {
+            var rng = RandomNumberGenerator.Create();
+            var data = new byte[4];
+            rng.GetBytes(data);
+
+            return BitConverter.ToUInt32(data, 0) / (double)uint.MaxValue;
+        }
+
+        #endregion
 
         #region AES CBC
 
