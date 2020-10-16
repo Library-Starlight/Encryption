@@ -62,5 +62,15 @@ namespace System.Security.Cryptography
 
             return Convert.ToBase64String(data);
         }
+
+        /// <summary>
+        /// 获取ContentMD5数据
+        /// </summary>
+        /// <param name="body">Http请求的内容</param>
+        /// <returns></returns>
+        public static byte[] GetContentMD5Data(string body)
+        {
+            return Encoding.UTF8.GetBytes(GetContentMD5(body).ToLower());
+        }
     }
 }
