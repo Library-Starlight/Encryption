@@ -73,11 +73,12 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Helper\ConsoleHelper.cs" />
     <Compile Include="Interface\IEncrypt.cs" />
+    <Compile Include="Model\Const.cs" />
     <Compile Include="Model\TokenModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Asymmetric.RSA\RSA2048.cs" />
-    <Compile Include="Asymmetric.RSA\RsaHelper.cs" />
+    <Compile Include="Asymmetric.RSA\RsaProvider.cs" />
+    <Compile Include="Synnetruc.AES\Aes128CbcProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

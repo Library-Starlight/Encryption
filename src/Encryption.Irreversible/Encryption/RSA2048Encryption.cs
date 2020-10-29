@@ -1,18 +1,14 @@
-﻿using Encryption.Irreversible.Interface;
-using Encryption.Irreversible.RSAs;
-using System;
-using System.Collections.Generic;
+﻿using Encryption.Irreversible.Asymmetric.RSA;
+using Encryption.Irreversible.Interface;
 using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Encryption.Irreversible.Encryption
 {
     [Description("RSA2048算法(公钥和私钥固定)")]
     public class RSA2048Encryption : IEncrypt
     {
-        private readonly RsaHelper _rsaHelper = new RsaHelper(RsaType.RSA2, Encoding.UTF8);
+        private readonly RsaProvider _rsaHelper = new RsaProvider(RsaType.RSA2, Encoding.UTF8);
 
         public string Decrypt(string input)
         {

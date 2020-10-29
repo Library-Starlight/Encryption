@@ -3,13 +3,13 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Encryption.Irreversible.RSAs
+namespace Encryption.Irreversible.Asymmetric.RSA
 {
     #region RsaHelper
-    public class RsaHelper
+    public class RsaProvider
     {
-        private readonly RSA _privateKeyRsaProvider;
-        private readonly RSA _publicKeyRsaProvider;
+        private readonly System.Security.Cryptography.RSA _privateKeyRsaProvider;
+        private readonly System.Security.Cryptography.RSA _publicKeyRsaProvider;
         private readonly HashAlgorithmName _hashAlgorithmName;
         private readonly Encoding _encoding;
 
@@ -26,7 +26,7 @@ namespace Encryption.Irreversible.RSAs
         /// <param name="encoding">编码类型</param>
         /// <param name="privateKey">私钥</param>
         /// <param name="publicKey">公钥</param>
-        public RsaHelper(RsaType rsaType, Encoding encoding, string privateKey = "", string publicKey = "")
+        public RsaProvider(RsaType rsaType, Encoding encoding, string privateKey = "", string publicKey = "")
         {
             if (string.IsNullOrEmpty(privateKey))
             {
@@ -118,11 +118,11 @@ namespace Encryption.Irreversible.RSAs
 
         #region 使用私钥创建RSA实例
 
-        public RSA CreateRsaProviderFromPrivateKey(string privateKey)
+        public System.Security.Cryptography.RSA CreateRsaProviderFromPrivateKey(string privateKey)
         {
             var privateKeyBits = Convert.FromBase64String(privateKey);
 
-            var rsa = RSA.Create();
+            var rsa = System.Security.Cryptography.RSA.Create();
             var rsaParameters = new RSAParameters();
 
             using (BinaryReader binr = new BinaryReader(new MemoryStream(privateKeyBits)))
@@ -163,7 +163,7 @@ namespace Encryption.Irreversible.RSAs
 
         #region 使用公钥创建RSA实例
 
-        public RSA CreateRsaProviderFromPublicKey(string publicKeyString)
+        public System.Security.Cryptography.RSA CreateRsaProviderFromPublicKey(string publicKeyString)
         {
             // encoded OID sequence for  PKCS #1 rsaEncryption szOID_RSA_RSA = "1.2.840.113549.1.1.1"
             byte[] seqOid = { 0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00 };
@@ -242,7 +242,7 @@ namespace Encryption.Irreversible.RSAs
                     byte[] exponent = binr.ReadBytes(expbytes);
 
                     // ------- create RSACryptoServiceProvider instance and initialize with public key -----
-                    var rsa = RSA.Create();
+                    var rsa = System.Security.Cryptography.RSA.Create();
                     RSAParameters rsaKeyInfo = new RSAParameters
                     {
                         Modulus = modulus,

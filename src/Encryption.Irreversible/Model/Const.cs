@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Encryption.Irreversible.Model
+{
+    public class Const
+    {
+        public static string RSAPrivateKey =
+            @"MIIEpQIBAAKCAQEAuJDqtBm7sCNWwPS4hv5lSWcH0WwOeBJUUjpDciJRaaqNFk4t
+ai8AakVn7fRg7rcD+YztFn28yls2Vy5yX+IZfbkFz1sM298/ZVyB8tRX6szuLUA3
+F5ioRssOiQN/c3C/PAiG1gqVSDVNyeblRSI/WqdAeP55SHs+3GPMqZPz2RDRVbQS
+8W3u5AWgKLi1jrkk/RshvlqOQCtS0tB5TrI2+xRp7Ka92adxvgZ5wPB7owsaoPon
+ssQJ/gYXYm/onydJGrxptCgG8tFkx69VjMyu6tV+vie2GjXz+gbHEsiudl7QM6gw
+UCs+3yPXSX9TGBm7SYU1V4GNBEb/ULRal7PzAwIDAQABAoIBAQCgP4Lo2Kbzadt7
+MX++Bcdfkgths5ZkflWkB15kDJPvUNurEDmyRhjwLE7udg5rdZAH7moz6vwuHj/y
+NiusQJ2tYSZAQWfKx+09TrKtadzjywbJV0X+QNdqkAeQwu64Bp6juyuHUC0JQu7F
+bKqH+hJT3X/HDfu0CP4tUKF0YzeHsO4Lr5nnQZBKJCiL6H3xj2+cIr6WIjzd7Zxf
+21bX2cKdCaPBm9KHeavt1/Lc8ulyxX1B+d6dc7jFIwrarfztEkBlUoSLKgSRwITq
+OEhOMp32bry5EAceNES6wciRJ4padLiFuukZwtj3gv91qACIb6cZhEdo7MmwKMMP
+/GiCBHZRAoGBAOkwne7lqtNWjnhCekwtjRtO10nsO5i/iE14YUyL+qHyCE1bGQOQ
+H9fT+3B9TcjuWer6p8m2xqZm5aLZPHF4MJZryqdPT4SQa/Sb1oQZLyqm9q5d8PSn
+7IXaeKkYZZmSi8Iyc2C5T33xK1I1JQePDK8y35BFPa3Z7DtZ0lYPaHr3AoGBAMqe
+se7IioDzmVFhKOhCVHXR2ae/+jdJG8NBw2Rs6QF07mo0wDuAJ7sjAnCjKJXecDP2
+TJsVU5H2N7ue7V+U9UBwSabVr6s+tu3sR7u14YEX1yIvlfGjZnilbtfl46e6JCYL
+jnQYaSlpcMOFrM4hGNrGShPnAt4yyuaxaYrQxxlVAoGAB0w5NRfE79Y+oS7bavTl
+/JvMCwk0mEQuPNZunRmoX1cWwWz/bGgfRv7gWJXjUE19TOhJRfvNXbnMp/sKdDah
+tqNq9S97OpfWeRJDdWDgZAJTqANSniV/NnUu34Pe8h5u90Xi7H0AKt3YUDtPjFwC
+tpzt+DLiikVOqlDWT1EuIOMCgYEAvki424H0KNQcuUNgsnaQcTGJkbOGHeOHsiCR
+ij+JtzeEK7OskHRzW5iuUu+3Tr/eab42BTLLD/nGL2o6jJgMlt6dHJPzbQPxsZFD
+cLKHu7+S52T/ETYeJtFePl2EJeF2z0/tEXRXVm/SWZyxQ8frWpH7waMim1/iEzKr
+5pTZVh0CgYEAmcQXs02BtAL4JCSSZD8ACogjE1Obra/u9JilC9zZSCtFnDWSozvI
+dioTLwUuwbHjMgFlnMhi46pJrSOu4UKn16zQmX5r6VExBxylxZR3BR38dncfUTiI
+LTWAAkCwKnwebVNdhjcI5PyQPj/k7Ycwdg+YRGYvynLnsJT0S2mU+cY=";
+
+        public static string RSAPublicKey =
+            @"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuJDqtBm7sCNWwPS4hv5l
+SWcH0WwOeBJUUjpDciJRaaqNFk4tai8AakVn7fRg7rcD+YztFn28yls2Vy5yX+IZ
+fbkFz1sM298/ZVyB8tRX6szuLUA3F5ioRssOiQN/c3C/PAiG1gqVSDVNyeblRSI/
+WqdAeP55SHs+3GPMqZPz2RDRVbQS8W3u5AWgKLi1jrkk/RshvlqOQCtS0tB5TrI2
++xRp7Ka92adxvgZ5wPB7owsaoPonssQJ/gYXYm/onydJGrxptCgG8tFkx69VjMyu
+6tV+vie2GjXz+gbHEsiudl7QM6gwUCs+3yPXSX9TGBm7SYU1V4GNBEb/ULRal7Pz
+AwIDAQAB";
+    }
+}

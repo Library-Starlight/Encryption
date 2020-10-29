@@ -1,20 +1,16 @@
-﻿using AlarmCenter.DataCenter;
+﻿using Encryption.Irreversible.Asymmetric.RSA;
 using Encryption.Irreversible.Cryptographies;
 using Encryption.Irreversible.Encryption;
 using Encryption.Irreversible.Extensions;
 using Encryption.Irreversible.Helper;
 using Encryption.Irreversible.Interface;
 using Encryption.Irreversible.Model;
-using Encryption.Irreversible.RSAs;
+using Encryption.Irreversible.Synnetruc.AES;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Encryption.Irreversible
 {
@@ -41,6 +37,54 @@ namespace Encryption.Irreversible
         /// <returns>是否正在测试，true: 正在测试, false: 不在测试</returns>
         private static bool Test()
         {
+            // 消息
+            var text = "Hello World!";
+
+            // Base64加密和解密
+            //var text = "Hello World!";
+            //var base64 = Convert.ToBase64String(UTF8Encoding.UTF8.GetBytes(text));
+            //var raw = UTF8Encoding.UTF8.GetString(Convert.FromBase64String(base64));
+
+            //Console.WriteLine(base64);
+            //Console.WriteLine(raw);
+            //return true;
+
+            //AES();
+
+            // AES-128-CBC
+            var key = Guid.NewGuid().ToString("N");
+            Console.WriteLine(key);
+
+            var cipher = Aes128CbcProvider.Encrypt(text, key);
+            Console.WriteLine(cipher);
+            var plainText = Aes128CbcProvider.Decrypt(cipher, key);
+            Console.WriteLine(plainText);
+
+            return true;
+
+            // 加密解密
+            var provider = new RsaProvider(RsaType.RSA2, Encoding.UTF8);
+            var enc = provider.Encrypt(text);
+            var dec = provider.Decrypt(enc);
+            Console.WriteLine($"Enc: {enc}");
+            Console.WriteLine($"Dec: {dec}");
+
+            // 签名验证
+            provider = new RsaProvider(RsaType.RSA2, Encoding.UTF8, Const.RSAPrivateKey, Const.RSAPublicKey);
+            var sig = provider.Sign(text);
+            var ver = provider.Verify(text, sig);
+            Console.WriteLine(sig);
+            Console.WriteLine(ver);
+
+            //var prik = Const.RSAPrivateKey;
+            //var pubk = Const.RSAPublicKey;
+            //var sign = RsaVerify.Sign(text, prik);
+            //var verify = RsaVerify.SignCheck(text, sign, pubk);
+            //Console.WriteLine(sign);
+            //Console.WriteLine(verify);
+
+            return true;
+
             return false;
         }
 
@@ -99,8 +143,8 @@ namespace Encryption.Irreversible
                 var enc = bIsEncrypt ? encrypt.Encrypt(input) : encrypt.Decrypt(input);
                 Console.WriteLine($"  Input: {input}");
                 Console.WriteLine($" Output: {enc}");
+                Console.WriteLine($" Base64: {Convert.ToBase64String(Encoding.UTF8.GetBytes(enc))}");
             }, "$End");
-
         }
 
         #endregion
@@ -112,7 +156,7 @@ namespace Encryption.Irreversible
         /// </summary>
         private static void RSA2048Encrypt()
         {
-            var rsaHelper = new RsaHelper(RsaType.RSA2, Encoding.UTF8);
+            var rsaHelper = new RsaProvider(RsaType.RSA2, Encoding.UTF8);
 
             ConsoleHelper.LoopProcessInputUntil(input =>
             {
@@ -124,7 +168,7 @@ namespace Encryption.Irreversible
 
         private static void RSA2048Decrypt()
         {
-            var rsaHelper = new RsaHelper(RsaType.RSA2, Encoding.UTF8);
+            var rsaHelper = new RsaProvider(RsaType.RSA2, Encoding.UTF8);
 
             ConsoleHelper.LoopProcessInputUntil(input =>
             {
