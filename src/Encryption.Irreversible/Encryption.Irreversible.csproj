@@ -78,7 +78,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Asymmetric.RSA\RsaProvider.cs" />
-    <Compile Include="Synnetruc.AES\Aes128CbcProvider.cs" />
+    <Compile Include="Symmetric.AES\Aes128CbcProvider.cs" />
+    <Compile Include="Symmetric.AES\AesExample.cs" />
+    <Compile Include="Symmetric.AES\AesOfficial.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
