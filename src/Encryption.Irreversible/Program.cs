@@ -52,7 +52,7 @@ namespace Encryption.Irreversible
             //AES();
 
             // AES-128-CBC
-            var key = Guid.NewGuid().ToString("N");
+            var key = "3242b0be7a814508b8601c886e9e9bd8";
             Console.WriteLine(key);
 
             var cipher = Aes128CbcProvider.Encrypt(text, key);
