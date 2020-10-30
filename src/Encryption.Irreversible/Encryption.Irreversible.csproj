@@ -82,6 +82,9 @@
     <Compile Include="Synnetruc.AES\Aes128CbcProvider.cs" />
     <Compile Include="Synnetruc.AES\AesProvider1.cs" />
 =======
+    <Compile Include="Symmetric.AES\Aes128CbcProvider.cs" />
+    <Compile Include="Symmetric.AES\AesExample.cs" />
+    <Compile Include="Symmetric.AES\AesOfficial.cs" />
 >>>>>>> 9d297ecdd5c02df1dc81e42ea5a5d6cf59013730
   </ItemGroup>
   <ItemGroup>
