@@ -52,12 +52,14 @@ namespace Encryption.Irreversible
             //AES();
 
             // AES-128-CBC
-            var key = "3242b0be7a814508b8601c886e9e9bd8";
+            var key = "c3754099f66f4bce888d50a5261d0b7e";
             Console.WriteLine(key);
 
-            var cipher = Aes128CbcProvider.Encrypt(text, key);
+            //var cipher = Aes128CbcProvider.Encrypt(text, key);
+            var cipher = AesProvider.Encrypt(text, key);
             Console.WriteLine(cipher);
-            var plainText = Aes128CbcProvider.Decrypt(cipher, key);
+            //var plainText = Aes128CbcProvider.Decrypt(cipher, key);
+            var plainText = AesProvider.Decrypt(cipher, key);
             Console.WriteLine(plainText);
 
             return true;
