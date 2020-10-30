@@ -6,6 +6,7 @@ using Encryption.Irreversible.Helper;
 using Encryption.Irreversible.Interface;
 using Encryption.Irreversible.Model;
 using Encryption.Irreversible.Symmetric.AES;
+using Encryption.Irreversible.Synnetruc.AES;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -73,12 +74,8 @@ namespace Encryption.Irreversible
             }
 
             // AES-128-CBC
-<<<<<<< HEAD
-            var key = "c3754099f66f4bce888d50a5261d0b7e";
-=======
             Console.WriteLine("AES CBC 2");
             var key = "3242b0be7a814508b8601c886e9e9bd8";
->>>>>>> 9d297ecdd5c02df1dc81e42ea5a5d6cf59013730
             Console.WriteLine(key);
 
             //var cipher = Aes128CbcProvider.Encrypt(text, key);
