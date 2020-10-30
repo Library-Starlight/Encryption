@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Encryption.Irreversible.Synnetruc.AES
+namespace Encryption.Irreversible.Symmetric.AES
 {
     public class Aes128CbcProvider
     {
@@ -20,6 +20,9 @@ namespace Encryption.Irreversible.Synnetruc.AES
                                               //设置密钥及密钥向量
             des.Key = Encoding.UTF8.GetBytes(encryptKey);
             des.IV = new byte[16];
+            // 生成随机的Inilization Vector
+            //des.GenerateIV();
+
             using (MemoryStream ms = new MemoryStream())
             {
                 using (CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(), CryptoStreamMode.Write))
@@ -36,11 +39,13 @@ namespace Encryption.Irreversible.Synnetruc.AES
 
         public static string Decrypt(string cipher, string encryptKey)
         {
+            var inputData = Convert.FromBase64String(cipher);
             SymmetricAlgorithm des = Rijndael.Create();
             des.Key = Encoding.UTF8.GetBytes(encryptKey);
-            des.IV = new byte[16];
+            var iv = new byte[16];
+            //Array.Copy(inputData, iv, 16);
+            des.IV = iv;
 
-            var inputData = Convert.FromBase64String(cipher);
             byte[] decryptBytes = new byte[inputData.Length];
             using (MemoryStream ms = new MemoryStream(inputData))
             {

@@ -5,6 +5,7 @@ using Encryption.Irreversible.Extensions;
 using Encryption.Irreversible.Helper;
 using Encryption.Irreversible.Interface;
 using Encryption.Irreversible.Model;
+using Encryption.Irreversible.Symmetric.AES;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -50,10 +51,33 @@ namespace Encryption.Irreversible
 
             //AES();
 
+            Console.WriteLine("AES CBC 1");
+            string original = "Here is some data to encrypt!";
+
+            // Create a new instance of the Aes
+            // class.  This generates a new key and initialization
+            // vector (IV).
+            using (Aes myAes = Aes.Create())
+            {
+
+                // Encrypt the string to an array of bytes.
+                byte[] encrypted = AesOfficial.EncryptStringToBytes_Aes(original, myAes.Key, myAes.IV);
+                Console.WriteLine(Convert.ToBase64String(encrypted));
+
+                // Decrypt the bytes to a string.
+                string roundtrip = AesOfficial.DecryptStringFromBytes_Aes(encrypted, myAes.Key, myAes.IV);
+
+                //Display the original data and the decrypted data.
+                Console.WriteLine("Original:   {0}", original);
+                Console.WriteLine("Round Trip: {0}", roundtrip);
+            }
+
             // AES-128-CBC
 <<<<<<< HEAD
             var key = "c3754099f66f4bce888d50a5261d0b7e";
 =======
+            Console.WriteLine("AES CBC 2");
+            var key = "3242b0be7a814508b8601c886e9e9bd8";
 >>>>>>> 9d297ecdd5c02df1dc81e42ea5a5d6cf59013730
             Console.WriteLine(key);
 
@@ -62,6 +86,12 @@ namespace Encryption.Irreversible
             Console.WriteLine(cipher);
             //var plainText = Aes128CbcProvider.Decrypt(cipher, key);
             var plainText = AesProvider.Decrypt(cipher, key);
+            Console.WriteLine(plainText);
+
+            Console.WriteLine("AES CBC 3");
+            var cipherData = AesExample.EncryptString(text, Encoding.UTF8.GetBytes(key));
+            Console.WriteLine(Convert.ToBase64String(cipherData));
+            plainText = AesExample.DecryptString(cipherData, Encoding.UTF8.GetBytes(key));
             Console.WriteLine(plainText);
 
             return true;
