@@ -1,6 +1,6 @@
-﻿using Encryption.Irreversible.Asymmetric.RSA;
-using Encryption.Irreversible.Interface;
+﻿using Encryption.Irreversible.Interface;
 using System.ComponentModel;
+using System.Security.Cryptography.Extensions;
 using System.Text;
 
 namespace Encryption.Irreversible.Encryption

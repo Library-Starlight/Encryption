@@ -1,16 +1,13 @@
-﻿using Encryption.Irreversible.Asymmetric.RSA;
-using Encryption.Irreversible.Cryptographies;
-using Encryption.Irreversible.Encryption;
+﻿using Encryption.Irreversible.Encryption;
 using Encryption.Irreversible.Extensions;
 using Encryption.Irreversible.Helper;
 using Encryption.Irreversible.Interface;
 using Encryption.Irreversible.Model;
 using Encryption.Irreversible.Symmetric.AES;
-using Encryption.Irreversible.Synnetruc.AES;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Security.Cryptography.Extensions;
 using System.Text;
 
 namespace Encryption.Irreversible
@@ -38,9 +35,21 @@ namespace Encryption.Irreversible
         /// <returns>是否正在测试，true: 正在测试, false: 不在测试</returns>
         private static bool Test()
         {
+
+            return false;
+        }
+
+        #endregion
+
+        #region AES128CBC
+
+        private static void Aes128Cbc()
+        {
             // 消息
             var text = "Hello World!";
-
+            var key = new byte[32];
+            var keyStr = Encoding.UTF8.GetString(key);
+            var iv = new byte[16];
             // Base64加密和解密
             //var text = "Hello World!";
             //var base64 = Convert.ToBase64String(UTF8Encoding.UTF8.GetBytes(text));
@@ -53,7 +62,7 @@ namespace Encryption.Irreversible
             //AES();
 
             Console.WriteLine("AES CBC 1");
-            string original = "Here is some data to encrypt!";
+            string original = "Hello World!";
 
             // Create a new instance of the Aes
             // class.  This generates a new key and initialization
@@ -62,61 +71,16 @@ namespace Encryption.Irreversible
             {
 
                 // Encrypt the string to an array of bytes.
-                byte[] encrypted = AesOfficial.EncryptStringToBytes_Aes(original, myAes.Key, myAes.IV);
+                byte[] encrypted = AesOfficial.EncryptStringToBytes_Aes(original, key, iv);
                 Console.WriteLine(Convert.ToBase64String(encrypted));
 
                 // Decrypt the bytes to a string.
-                string roundtrip = AesOfficial.DecryptStringFromBytes_Aes(encrypted, myAes.Key, myAes.IV);
+                string roundtrip = AesOfficial.DecryptStringFromBytes_Aes(encrypted, key, iv);
 
                 //Display the original data and the decrypted data.
                 Console.WriteLine("Original:   {0}", original);
                 Console.WriteLine("Round Trip: {0}", roundtrip);
             }
-
-            // AES-128-CBC
-            Console.WriteLine("AES CBC 2");
-            var key = "3242b0be7a814508b8601c886e9e9bd8";
-            Console.WriteLine(key);
-
-            //var cipher = Aes128CbcProvider.Encrypt(text, key);
-            var cipher = AesProvider.Encrypt(text, key);
-            Console.WriteLine(cipher);
-            //var plainText = Aes128CbcProvider.Decrypt(cipher, key);
-            var plainText = AesProvider.Decrypt(cipher, key);
-            Console.WriteLine(plainText);
-
-            Console.WriteLine("AES CBC 3");
-            var cipherData = AesExample.EncryptString(text, Encoding.UTF8.GetBytes(key));
-            Console.WriteLine(Convert.ToBase64String(cipherData));
-            plainText = AesExample.DecryptString(cipherData, Encoding.UTF8.GetBytes(key));
-            Console.WriteLine(plainText);
-
-            return true;
-
-            // 加密解密
-            var provider = new RsaProvider(RsaType.RSA2, Encoding.UTF8);
-            var enc = provider.Encrypt(text);
-            var dec = provider.Decrypt(enc);
-            Console.WriteLine($"Enc: {enc}");
-            Console.WriteLine($"Dec: {dec}");
-
-            // 签名验证
-            provider = new RsaProvider(RsaType.RSA2, Encoding.UTF8, Const.RSAPrivateKey, Const.RSAPublicKey);
-            var sig = provider.Sign(text);
-            var ver = provider.Verify(text, sig);
-            Console.WriteLine(sig);
-            Console.WriteLine(ver);
-
-            //var prik = Const.RSAPrivateKey;
-            //var pubk = Const.RSAPublicKey;
-            //var sign = RsaVerify.Sign(text, prik);
-            //var verify = RsaVerify.SignCheck(text, sign, pubk);
-            //Console.WriteLine(sign);
-            //Console.WriteLine(verify);
-
-            return true;
-
-            return false;
         }
 
         #endregion
@@ -182,6 +146,32 @@ namespace Encryption.Irreversible
 
         #region RSA2048加密
 
+        private static void Rsa()
+        {
+            var text = "Hello World!";
+
+            // 加密解密
+            var provider = new RsaProvider(RsaType.RSA2, Encoding.UTF8);
+            var enc = provider.Encrypt(text);
+            var dec = provider.Decrypt(enc);
+            Console.WriteLine($"Enc: {enc}");
+            Console.WriteLine($"Dec: {dec}");
+
+            // 签名验证
+            provider = new RsaProvider(RsaType.RSA2, Encoding.UTF8, Const.RSAPrivateKey, Const.RSAPublicKey);
+            var sig = provider.Sign(text);
+            var ver = provider.Verify(text, sig);
+            Console.WriteLine(sig);
+            Console.WriteLine(ver);
+
+            //var prik = Const.RSAPrivateKey;
+            //var pubk = Const.RSAPublicKey;
+            //var sign = RsaVerify.Sign(text, prik);
+            //var verify = RsaVerify.SignCheck(text, sign, pubk);
+            //Console.WriteLine(sign);
+            //Console.WriteLine(verify);
+        }
+
         /// <summary>
         /// RSA2048加密
         /// </summary>
@@ -230,68 +220,6 @@ namespace Encryption.Irreversible
             rng.GetBytes(data);
 
             return BitConverter.ToUInt32(data, 0) / (double)uint.MaxValue;
-        }
-
-        #endregion
-
-        #region AES CBC
-
-        private static void GetAes()
-        {
-            var request = new TokenModel
-            {
-                userId = "12564",
-                nonce = "a9028aad1c7a611a",
-            };
-
-            var original = JsonConvert.SerializeObject(request);
-            var key = "DWYEiW9kqtRs21da";
-            var iv = Guid.NewGuid().ToString("N").Substring(0, 16);
-
-            var base64 = AesEncrypt.EncryptStringToBase64(original, key, iv);
-            Console.WriteLine(key);
-            Console.WriteLine(iv);
-            Console.WriteLine(base64);
-        }
-
-        private static void AES()
-        {
-            string original = "Here is some data to encrypt!";
-            var key = "DWYEiW9kqtRs21da";
-
-            var iv = Guid.NewGuid().ToString("N").Substring(0, 16);
-            Console.WriteLine(key);
-            Console.WriteLine(iv);
-            var str = AesEncrypt.EncryptStringToBase64(original, key, iv);
-            Console.WriteLine(str);
-
-            var org = AesEncrypt.DecryptBase64ToOriginal(str, key, iv);
-            Console.WriteLine(org);
-            Console.WriteLine();
-        }
-
-        private static void AESCBC()
-        {
-            string original = "Here is some data to encrypt!";
-
-            using (Aes myAes = Aes.Create())
-            {
-                // Encrypt the string to an array of bytes.
-                byte[] encrypted = Cryptographies.AesEncrypt.EncryptStringToBytes_Aes(original, myAes.Key, myAes.IV);
-
-                Console.WriteLine($"Key: {BitConverter.ToString(myAes.Key)}");
-                Console.WriteLine($"Key: {Encoding.UTF8.GetString(myAes.Key)}");
-                Console.WriteLine($" IV: {BitConverter.ToString(myAes.IV)}");
-                Console.WriteLine($" IV: {Encoding.UTF8.GetString(myAes.IV)}");
-                Console.WriteLine($"Base64: {Convert.ToBase64String(encrypted)}");
-
-                // Decrypt the bytes to a string.
-                string roundtrip = Cryptographies.AesEncrypt.DecryptStringFromBytes_Aes(encrypted, myAes.Key, myAes.IV);
-
-                //Display the original data and the decrypted data.
-                Console.WriteLine("Original:   {0}", original);
-                Console.WriteLine("Round Trip: {0}", roundtrip);
-            }
         }
 
         #endregion

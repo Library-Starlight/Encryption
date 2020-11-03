@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Encryption.Irreversible.Asymmetric.RSA
+namespace System.Security.Cryptography.Extensions
 {
     #region RsaHelper
     public class RsaProvider

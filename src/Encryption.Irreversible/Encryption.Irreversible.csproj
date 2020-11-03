@@ -62,7 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cryptographies\AesEncrypt.cs" />
+    <Compile Include="Cryptographies\AesProvider.cs" />
     <Compile Include="Cryptographies\Base64.cs" />
     <Compile Include="Cryptographies\MD5Encrypt.cs" />
     <Compile Include="Cryptographies\Sha256.cs" />
@@ -70,6 +70,10 @@
     <Compile Include="Encryption\GWPwdEncryption.cs" />
     <Compile Include="Encryption\RSA2048Encryption.cs" />
     <Compile Include="Encryption\SHA512Encryption.cs" />
+    <Compile Include="Explore\Symmetric.AES\Aes128CbcProvider.cs" />
+    <Compile Include="Explore\Symmetric.AES\AesExample.cs" />
+    <Compile Include="Explore\Symmetric.AES\AesOfficial.cs" />
+    <Compile Include="Explore\Synnetruc.AES\AesProvider1.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Helper\ConsoleHelper.cs" />
     <Compile Include="Interface\IEncrypt.cs" />
@@ -78,9 +82,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Asymmetric.RSA\RsaProvider.cs" />
-    <Compile Include="Synnetruc.AES\AesProvider1.cs" />
-    <Compile Include="Symmetric.AES\AesExample.cs" />
-    <Compile Include="Symmetric.AES\AesOfficial.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
