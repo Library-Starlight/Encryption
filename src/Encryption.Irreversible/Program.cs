@@ -35,8 +35,21 @@ namespace Encryption.Irreversible
         /// <returns>是否正在测试，true: 正在测试, false: 不在测试</returns>
         private static bool Test()
         {
+            var text = "Hello World!";
+            var encryptKey = Guid.NewGuid().ToString("N"); //"d9b46c3513654f66bea91f7e81009ce9";
+            var key = encryptKey.ToBytes();
+            //key = Encoding.UTF8.GetBytes(encryptKey);
+            var iv = new byte[16];
 
-            return false;
+            var enc = AesProvider.Encrypt(text, key, iv);
+            var dec = AesProvider.Decrypt(enc, key, iv);
+
+            Console.WriteLine($"加密前：{text}");
+            Console.WriteLine($"加密后：{enc}");
+            Console.WriteLine($"   key：{BitConverter.ToString(key).Replace("-", "")}");
+            Console.WriteLine($"    iv：{BitConverter.ToString(iv).Replace("-", "")}");
+
+            return true;
         }
 
         #endregion

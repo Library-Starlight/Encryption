@@ -8,35 +8,58 @@ namespace System.Security.Cryptography.Extensions
 {
     public class AesProvider
     {
-        public static string Encrypt(string plainText, byte[] encryptKey)
+        /// <summary>
+        /// 加密
+        /// </summary>
+        /// <param name="plainText">原始文本</param>
+        /// <param name="key">加密密钥</param>
+        /// <param name="iv">加密初始化向量</param>
+        /// <returns></returns>
+        public static string Encrypt(string plainText, byte[] key, byte[] iv)
         {
             //分组加密算法  
-             SymmetricAlgorithm des = Rijndael.Create();
+            SymmetricAlgorithm des = Rijndael.Create();
 
             var inputdata = Encoding.UTF8.GetBytes(plainText);
-             byte[] inputByteArray = inputdata;//得到需要加密的字节数组      
-             //设置密钥及密钥向量
-             des.Key = encryptKey;
-             des.IV = new byte[16];
-             using (MemoryStream ms = new MemoryStream())
-             {
-                 using (CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(), CryptoStreamMode.Write))
-                 {
-                     cs.Write(inputByteArray, 0, inputByteArray.Length);
-                     cs.FlushFinalBlock();
-                     byte[] cipherBytes = ms.ToArray();//得到加密后的字节数组  
-                     cs.Close();
-                     ms.Close();                  
-                     return Convert.ToBase64String(cipherBytes);
-                 }
-             }
+            byte[] inputByteArray = inputdata;//得到需要加密的字节数组      
+                                              //设置密钥及密钥向量
+            des.Key = key;
+            des.IV = iv;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(), CryptoStreamMode.Write))
+                {
+                    cs.Write(inputByteArray, 0, inputByteArray.Length);
+                    cs.FlushFinalBlock();
+                    byte[] cipherBytes = ms.ToArray();//得到加密后的字节数组  
+                    cs.Close();
+                    ms.Close();
+                    return Convert.ToBase64String(cipherBytes);
+                }
+            }
         }
 
-        public static string Decrypt(string cipher, byte[] encryptKey)
+        /// <summary>
+        /// 加密
+        /// </summary>
+        /// <param name="plainText">原始文本</param>
+        /// <param name="key">加密密钥</param>
+        /// <returns></returns>
+        public static string Encrypt(string plainText, byte[] key)
+            => Encrypt(plainText, key, new byte[16]);
+
+        /// <summary>
+        /// 解密
+        /// </summary>
+        /// <param name="cipher">密文</param>
+        /// <param name="key">加密密钥</param>
+        /// <param name="iv">加密初始化向量</param>
+        /// <returns></returns>
+        public static string Decrypt(string cipher, byte[] key, byte[] iv)
         {
              SymmetricAlgorithm des = Rijndael.Create();
-             des.Key = encryptKey;
-             des.IV = new byte[16];
+             des.Key = key;
+             des.IV = iv;
 
             var inputData = Convert.FromBase64String(cipher);
              byte[] decryptBytes = new byte[inputData.Length];
@@ -52,5 +75,14 @@ namespace System.Security.Cryptography.Extensions
 
             return Encoding.UTF8.GetString(decryptBytes);
         }
+
+        /// <summary>
+        /// 解密
+        /// </summary>
+        /// <param name="cipher">密文</param>
+        /// <param name="key">加密密钥</param>
+        /// <returns></returns>
+        public static string Decrypt(string cipher, byte[] key)
+            => Decrypt(cipher, key, new byte[16]);
     }
 }

@@ -74,6 +74,7 @@
     <Compile Include="Explore\Symmetric.AES\AesExample.cs" />
     <Compile Include="Explore\Symmetric.AES\AesOfficial.cs" />
     <Compile Include="Explore\Synnetruc.AES\AesProvider1.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Helper\ConsoleHelper.cs" />
     <Compile Include="Interface\IEncrypt.cs" />
