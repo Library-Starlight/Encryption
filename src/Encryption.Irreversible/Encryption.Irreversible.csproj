@@ -62,10 +62,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Check\HJ212CRC16Check.cs" />
     <Compile Include="Cryptographies\AesProvider.cs" />
     <Compile Include="Cryptographies\Base64.cs" />
     <Compile Include="Cryptographies\MD5Encrypt.cs" />
     <Compile Include="Cryptographies\Sha256.cs" />
+    <Compile Include="Check\CRC16ModbusCheck.cs" />
     <Compile Include="Encryption\GWMD5Encryption.cs" />
     <Compile Include="Encryption\GWPwdEncryption.cs" />
     <Compile Include="Encryption\RSA2048Encryption.cs" />

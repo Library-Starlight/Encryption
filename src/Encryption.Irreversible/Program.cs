@@ -1,4 +1,5 @@
-﻿using Encryption.Irreversible.Encryption;
+﻿using Encryption.Irreversible.Check;
+using Encryption.Irreversible.Encryption;
 using Encryption.Irreversible.Extensions;
 using Encryption.Irreversible.Helper;
 using Encryption.Irreversible.Interface;
@@ -18,13 +19,47 @@ namespace Encryption.Irreversible
 
         static void Main(string[] args)
         {
-            if (Test())
-                return;
-
-            Encryption();
+            CRC16ModbusChecksum();
         }
 
-        #region Test
+        #region CRC-16-Modbus校验和
+
+        /// <summary>
+        /// CRC-16-Modbus校验和
+        /// </summary>
+        private static void CRC16ModbusChecksum()
+        {
+            //var data = new byte[] { 0x16, 0x75, 0x85 };
+            //var result = CRC16ModbusCheck.GetModbusCrc16(data);
+            //Console.WriteLine(BitConverter.ToString(result));
+
+            //var success = CRC16ModbusCheck.Check(data, result);
+            //Console.WriteLine(success);
+
+
+            ////var s = "QN=20200626171007000;ST=80;CN=2011;PW=123456;MN=001093102352003110310069;Flag=5;CP=&&DataTime=20200626171000;ea30010101-Rtd=0.00,ea30010101-Flag=F;ea30010102-Rtd=0.00,ea30010102-Flag=F;ea30010103-Rtd=0.00,ea30010103-Flag=F;ea30010104-Rtd=0.00,ea30010104-Flag=F;ea30010105-Rtd=0.000,ea30010105-Flag=F;ea30010106-Rtd=0.000,ea30010106-Flag=F;ea30010107-Rtd=0.00,ea30010107-Flag=F;ea30010108-Rtd=0.00,ea30010108-Flag=F;ea30010109-Rtd=0.00,ea30010109-Flag=F;ea30010110-Rtd=0.0,ea30010110-Flag=F;ea30010111-Rtd=0.0,ea30010111-Flag=F;ea30010112-Rtd=0.0,ea30010112-Flag=F;ea30010113-Rtd=0.0,ea30010113-Flag=F&&";
+            //var s = "ST=22;CN=2011;PW=123456;MN=8888888887654321;CP=&&DataTime=20170817180416;PM25-Rtd=30.5;PM10-Rtd=33.8;TEMP-Rtd=27.9;HUMI-Rtd=58.6;SO2-Rtd=27.7;NO2-Rtd=57.2;&&";
+            //var data = Encoding.ASCII.GetBytes(s);
+            //Console.WriteLine(BitConverter.ToString(data).Replace("-", ""));
+            ////var checkSum = new byte[] { 0xFE, 0x41 };
+            //var checkSum = new byte[] { 0x1B, 0x9A };
+            //var success = CRC16ModbusCheck.Check(data, checkSum);
+            //Console.WriteLine(success);
+
+            //var realSum = CRC16ModbusCheck.GetModbusCrc16(data);
+            //Console.WriteLine(BitConverter.ToString(realSum));
+
+            //var s = "##0101QN=20160801085857223;ST=32;CN=1062;PW=100000;MN=010000A8900016F000169DC0;Flag=5;CP=&&RtdInterval=30&&1C80";
+            //var body = "QN=20160801085857223;ST=32;CN=1062;PW=100000;MN=010000A8900016F000169DC0;Flag=5;CP=&&RtdInterval=30&&";
+            var body = "ST=22;CN=2011;PW=123456;MN=8888888887654322;CP=&&DataTime=20210114180416;PM25-Rtd=30.5;PM10-Rtd=33.8;TEMP-Rtd=27.9;HUMI-Rtd=58.6;SO2-Rtd=27.7;NO2-Rtd=57.2;PM100-Rtd=52.5;O3-Rtd=33.3;CO-Rtd=44.4;CO2-Rtd=55.5;VOC-Rtd=66.6;CH2O-Rtd=77.7;O2-Rtd=88.8;MPA-Rtd=99.9;WS-Rtd=11.11;WD-Rtd=22.22;NOISE-Rtd=33.33;CL2-Rtd=44.44;HCL-Rtd=55.55;H2S-Rtd=66.66;NH3-Rtd=77.77&&";
+            var data = Encoding.ASCII.GetBytes(body);
+            var checkSum = HJ212CRC16Check.CRC16Checkout(data);
+            Console.WriteLine(checkSum);
+        }
+
+        #endregion
+
+        #region AES算法测试
 
         /// <summary>
         /// 测试操作的可用性
@@ -33,8 +68,11 @@ namespace Encryption.Irreversible
         /// 测试完成后，需删除方法内部所有内容, 并返回false
         /// </remarks>
         /// <returns>是否正在测试，true: 正在测试, false: 不在测试</returns>
-        private static bool Test()
+        private static bool AesTest()
         {
+            Rsa();
+            return true;
+
             var text = "Hello World!";
             var encryptKey = Guid.NewGuid().ToString("N"); //"d9b46c3513654f66bea91f7e81009ce9";
             var key = encryptKey.ToBytes();
